@@ -3,11 +3,11 @@ package src
 type Attributes map[string]string
 
 type ElementData struct {
-	tagName string
+	tagName    string
 	attributes Attributes
 }
 
-type NodeType interface {}
+type NodeType interface{}
 
 type TextType struct {
 	string
@@ -28,7 +28,7 @@ func Text(data string) Node {
 	}
 }
 
-func Element(name string, attributes Attributes, children[]Node) Node {
+func Element(name string, attributes Attributes, children []Node) Node {
 	return Node{
 		children: children,
 		nodeType: ElementData{
