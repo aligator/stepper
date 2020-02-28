@@ -72,4 +72,3 @@ func (b BasicParser) StartsWith(text string) bool {
 func (b BasicParser) Eof() bool {
 	return b.position >= len(b.input)
 }
-

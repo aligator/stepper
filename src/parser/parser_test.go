@@ -20,7 +20,7 @@ func getBasicParser() BasicParser {
 func TestPeek(t *testing.T) {
 	p := getBasicParser()
 
-	testPeek := func (pos int, expected rune) {
+	testPeek := func(pos int, expected rune) {
 		p.position = pos
 		r := p.Peek()
 		if r != expected {
@@ -34,13 +34,13 @@ func TestPeek(t *testing.T) {
 
 	testPeek(0, '<')
 	testPeek(15, 'y')
-	testPeek(len(testHtml) - 1, '>')
+	testPeek(len(testHtml)-1, '>')
 }
 
 func TestNext(t *testing.T) {
 	p := getBasicParser()
 
-	testNext := func (pos int, expected1 rune, expected2 rune) {
+	testNext := func(pos int, expected1 rune, expected2 rune) {
 		p.position = pos
 
 		r := p.Next()
@@ -75,5 +75,24 @@ func TestWhile(t *testing.T) {
 
 	if len(expected) != p.position {
 		t.Errorf("While() should increment the position correctly. Expected: %d Actual: %d", len(expected), p.position)
+	}
+}
+
+func TestStartsWith(t *testing.T) {
+	p := getBasicParser()
+	result := p.StartsWith("<html>")
+
+	if !result {
+		t.Errorf("StartsWith() should have found <html> but found nothing.")
+	}
+
+	result = p.StartsWith("<baum>")
+
+	if result {
+		t.Errorf("StartsWith() shouldn't have found <baum>.")
+	}
+
+	if p.position != 0 {
+		t.Errorf("StartsWith should not change the position")
 	}
 }
